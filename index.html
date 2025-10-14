@@ -1,121 +1,239 @@
 <!DOCTYPE html>
+<!-- no build step. no other files. just rawdogging javascript as god intended -->
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>olivia wong</title>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Source+Code+Pro&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #0e0e0e;
-      --fg: #d4f8e8;
-       --accent: #91A3EE;
-      --glow: #9efeff;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>olivia wong</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Source+Code+Pro&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0e0e0e;
+        --fg: #d4f8e8;
+        --accent: #91a3ee;
+        --glow: #9efeff;
+      }
 
-    * {
-      box-sizing: border-box;
-    }
+      * {
+        box-sizing: border-box;
+      }
 
-    html, body {
-      margin: 0;
-      padding: 0;
-      scroll-behavior: smooth;
-      font-family: 'Source Code Pro', monospace;
-      background: var(--bg);
-      color: var(--fg);
-    }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        scroll-behavior: smooth;
+        font-family: "Source Code Pro", monospace;
+        background: var(--bg);
+        color: var(--fg);
+      }
 
-    a {
-      color: var(--accent);
-      text-decoration: none;
-      transition: all 0.2s ease;
-    }
+      a {
+        color: var(--accent);
+        text-decoration: none;
+        transition: all 0.2s ease;
+      }
 
-    a:hover {
-      color: var(--glow);
-      text-shadow: 0 0 4px var(--glow);
-    }
+      a:hover {
+        color: var(--glow);
+        text-shadow: 0 0 4px var(--glow);
+      }
 
-    section {
-      width: 100%;
-      min-height: 100vh;
-      padding: 3rem 2rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
+      section {
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
 
-    .intro h1 {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 3rem;
-      margin-bottom: 0.5rem;
-    }
+      .intro h1 {
+        font-family: "Space Grotesk", sans-serif;
+        font-size: 3rem;
+        margin-bottom: 0.5rem;
+      }
 
-    p {
-      line-height: 1.6;
-      font-size: 1.1rem;
-      color: #BBC0CA;
-    }
-    .intro p {
-      max-width: 600px;
-      margin-bottom: 2rem;
-    }
+      p {
+        line-height: 1.6;
+        font-size: 1.1rem;
+        color: #bbc0ca;
+      }
+      .intro p {
+        max-width: 600px;
+        margin-bottom: 2rem;
+      }
 
-    .cursor::after {
-      content: '|';
-      animation: blink 2s infinite;
-      color: #91A3EE;
-    }
+      .cursor::after {
+        content: "|";
+        animation: blink 2s infinite;
+        color: #91a3ee;
+      }
 
-    @keyframes blink {
-      0%, 50%, 100% { opacity: 1; }
-      25%, 75% { opacity: 0; }
-    }
+      @keyframes blink {
+        0%,
+        50%,
+        100% {
+          opacity: 1;
+        }
+        25%,
+        75% {
+          opacity: 0;
+        }
+      }
 
-    .nav a {
-      margin: 0 0.6rem;
-      font-weight: 500;
-    }
+      .nav a {
+        margin: 0 0.6rem;
+        font-weight: 500;
+      }
 
-    .projects {
-      background: #15171A;
-      box-shadow: inset 0 0 20px rgba(127, 255, 212, 0.1);
-    }
+      .projects {
+        background: #15171a;
+      }
 
-    .projects h2 {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
+      .projects h2 {
+        font-family: "Space Grotesk", sans-serif;
+        font-size: 2rem;
+        margin-bottom: 1rem;
+      }
 
-    .projects p {
-      color: #aaa;
-    }
-  </style>
-</head>
-<body>
+      .projects p {
+        color: #aaa;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="intro">
+      <h1>olivia wong<span class="cursor"></span></h1>
+      <p>i make things</p>
+      <div class="nav">
+        <a href="mailto:oliviaawongg@gmail.com">email</a> /
+        <a href="https://github.com/olivewong" target="_blank">github</a> /
+        <a href="https://linkedin.com/in/olivemwong" target="_blank"
+          >linkedin</a
+        >
+        /
+        <a href="#projects">projects</a>
+      </div>
+    </section>
+    <section id="projects">
+      <h2>projects</h2>
 
-  <section class="intro">
-    <h1>olivia wong<span class="cursor"></span></h1>
-    <p>
-      i make things
-    </p>
-    <div class="nav">
-      <a href="mailto:oliviaawongg@gmail.com">email</a> /
-      <a href="https://github.com/olivewong" target="_blank">github</a> /
-      <a href="https://linkedin.com/in/olivemwong" target="_blank">linkedin</a> /
-      <a href="#projects">projects</a>
-    </div>
-  </section>
+      <header>
+        <small style="color: #dddddd">lava lamp wgsl/webgpu</small>
+      </header>
 
-  <section class="projects" id="projects">
-    <h2>projects</h2>
-    <p>coming soon.</p>
-  </section>
+      <canvas
+        id="lava-canvas"
+        style="width: 100%; height: 100%; display: block; background: #1b0d12"
+      ></canvas>
+    </section>
 
-</body>
+    <script type="module">
+      (async () => {
+        const canvas = document.querySelector("#lava-canvas");
+
+        // TODO: try catch navigator undef if no webgpu
+        const adapter = await navigator.gpu.requestAdapter();
+        const device = await adapter.requestDevice();
+        const context = canvas.getContext("webgpu");
+        const format = navigator.gpu.getPreferredCanvasFormat();
+          context.configure({ device, format, alphaMode: "opaque" });
+
+        // resources
+        // https://jamie-wong.com/2014/08/19/metaballs-and-marching-squares/
+        // fml there is no good vim one?
+        const shaderText = /* wgsl */ `
+struct Globals { resolution: vec2<f32>, time: f32, _pad: f32 }
+@group(0) @binding(0) var<uniform> U : Globals;
+
+@vertex
+fn vs(@builtin(vertex_index) vid : u32) -> @builtin(position) vec4<f32> {
+  var pos = array<vec2<f32>, 3>(
+    vec2<f32>(-1.0, -3.0), vec2<f32>(-1.0, 1.0), vec2<f32>(3.0, 1.0)
+  );
+  return vec4<f32>(pos[vid], 0.0, 1.0);
+}
+
+@fragment
+fn fs(@builtin(position) fragCoord: vec4<f32>) -> @location(0) vec4<f32> {
+  //return vec4<f32>(0.4, 0.4, 0.4, 1.0);
+    let res = U.resolution;
+  var uv = (fragCoord.xy / res) * 2.0 - 1.0;
+  uv.x *= res.x / res.y;
+
+  let t = U.time;
+  // visible animated color so you know it's working
+  let col = 0.5 + 0.5 * sin(vec3<f32>(uv.x + t, uv.y*1.2 - t, t*0.7));
+  return vec4<f32>(col, 1.0);
+}
+`;
+        device.addEventListener("uncapturederror", (event) => {
+          console.log("lava", event.error.message);
+        });
+
+        const module = device.createShaderModule({ code: shaderText });
+        // GET ERRORS
+        if ("getCompilationInfo" in module) {
+          const info = await module.getCompilationInfo();
+          for (const msg of info.messages) {
+            const where = `@ ${msg.lineNum}:${msg.linePos}`;
+            const text = `${msg.message} ${where}`;
+            if (msg.type === "error") console.error("[WGSL error]", text);
+            else if (msg.type === "warning") console.warn("[WGSL warn]", text);
+            else console.log("[WGSL info]", text);
+          }
+        }
+
+        const pipeline = device.createRenderPipeline({
+          layout: "auto",
+          vertex: { module, entryPoint: "vs" },
+          fragment: { module, entryPoint: "fs", targets: [{ format }] },
+          primitive: { topology: "triangle-list" },
+        });
+
+        // we want it screen size for the resolution so its not stretched
+        // buffer + bindgroup
+        const uniformBuf = device.createBuffer({
+          size: 16,
+          usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST,
+        });
+        const bindGroup = device.createBindGroup({
+          layout: pipeline.getBindGroupLayout(0),
+          entries: [{ binding: 0, resource: { buffer: uniformBuf } }],
+        });
+        let speed = 5000; // lower is faster tho
+        let start = performance.now();
+
+        function frame() {
+          const t = (performance.now() - start) / speed;
+          const res = new Float32Array([canvas.width, canvas.height, t, 0]);
+          device.queue.writeBuffer(uniformBuf, 0, res.buffer);
+
+          const encoder = device.createCommandEncoder();
+          const pass = encoder.beginRenderPass({
+            colorAttachments: [
+              {
+                view: context.getCurrentTexture().createView(),
+                clearValue: { r: 0.02, g: 0.03, b: 0.06, a: 1 },
+                loadOp: "clear",
+                storeOp: "store",
+              },
+            ],
+          });
+          pass.setPipeline(pipeline);
+          pass.setBindGroup(0, bindGroup);
+          pass.draw(3);
+          pass.end();
+          device.queue.submit([encoder.finish()]);
+          requestAnimationFrame(frame);
+        }
+        frame();
+      })();
+    </script>
+  </body>
 </html>
-
