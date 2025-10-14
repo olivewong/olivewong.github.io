@@ -122,11 +122,6 @@
       </div>
     </section>
     <section id="projects">
-      <h2>projects</h2>
-
-      <header>
-        <small style="color: #dddddd">lava lamp wgsl/webgpu</small>
-      </header>
 
       <canvas
         id="lava-canvas"
@@ -147,10 +142,19 @@
 
         // resources
         // https://jamie-wong.com/2014/08/19/metaballs-and-marching-squares/
+        // https://www.geisswerks.com/ryan/BLOBS/blobs.html
+        // https://www.shadertoy.com/view/NlGcDh
+        // rly good explanation
+        // https://www.gamedev.net/articles/programming/graphics/exploring-metaballs-and-isosurfaces-in-2d-r2556/
+
         // fml there is no good vim one?
         const shaderText = /* wgsl */ `
 struct Globals { resolution: vec2<f32>, time: f32, _pad: f32 }
 @group(0) @binding(0) var<uniform> U : Globals;
+
+const EDGE: f32 = 0.60;   // iso-level; higher = thinner blobs
+const BAND: f32 = 0.14;   // rim softness
+const NUM_BALLS: u32 = 6;
 
 @vertex
 fn vs(@builtin(vertex_index) vid : u32) -> @builtin(position) vec4<f32> {
@@ -160,25 +164,56 @@ fn vs(@builtin(vertex_index) vid : u32) -> @builtin(position) vec4<f32> {
   return vec4<f32>(pos[vid], 0.0, 1.0);
 }
 
+fn getBallPos(index: u32, t: f32) -> vec2<f32> {
+  // lissajous curve for animating the balls
+//    let speed = f32(abs(index / NUM_BALLS - NUM_BALLS / 2));
+let speed = f32(index) * f32(index);
+    let phase = f32(index) % f32(NUM_BALLS);
+  let blobPos: vec2<f32> = vec2<f32>(
+    cos(t + phase * speed),
+    sin(t * 0.2 - f32(index) / f32(NUM_BALLS) * speed)
+  );
+  return blobPos;
+}
+
 @fragment
 fn fs(@builtin(position) fragCoord: vec4<f32>) -> @location(0) vec4<f32> {
-  //return vec4<f32>(0.4, 0.4, 0.4, 1.0);
     let res = U.resolution;
   var uv = (fragCoord.xy / res) * 2.0 - 1.0;
   uv.x *= res.x / res.y;
 
+let radius = 0.3;
+let numBalls = 5; 
+let white = vec4(1.0, 1.0, 1.0, 1.0);
+let black = vec4(0.0, 0.0, 0.0, 0.0);
+let purple = vec4(0.6, 0.1, 0.6, 1.0);
+let hotPink = vec4(1.0, 0.09, 0.6, 1.0);
+let trans = vec4(1.0, 0.1, 0.6, 0.0);
+
   let t = U.time;
-  // visible animated color so you know it's working
-  let col = 0.5 + 0.5 * sin(vec3<f32>(uv.x + t, uv.y*1.2 - t, t*0.7));
-  return vec4<f32>(col, 1.0);
+//  let col = 0.5 + 0.5 * sin(vec3<f32>(uv.x + t, uv.y*1.2 - t, t*0.7));
+  var inBlob = false;
+  var val = 0.0;
+  for (var i: u32 = 0u; i < NUM_BALLS; i++) {
+    var blobPos = getBallPos(i, t);
+    if distance(blobPos, uv) < radius {
+      val += 0.5;
+    }
+  }
+  var bgColor = mix(
+  var color = mix(purple, white, val);
+  return color;
 }
 `;
+/*
         device.addEventListener("uncapturederror", (event) => {
           console.log("lava", event.error.message);
         });
+        */
 
         const module = device.createShaderModule({ code: shaderText });
         // GET ERRORS
+        /*
         if ("getCompilationInfo" in module) {
           const info = await module.getCompilationInfo();
           for (const msg of info.messages) {
@@ -189,6 +224,7 @@ fn fs(@builtin(position) fragCoord: vec4<f32>) -> @location(0) vec4<f32> {
             else console.log("[WGSL info]", text);
           }
         }
+        */
 
         const pipeline = device.createRenderPipeline({
           layout: "auto",
