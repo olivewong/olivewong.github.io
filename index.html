@@ -166,9 +166,8 @@ fn vs(@builtin(vertex_index) vid : u32) -> @builtin(position) vec4<f32> {
 
 fn getBallPos(index: u32, t: f32) -> vec2<f32> {
   // lissajous curve for animating the balls
-//    let speed = f32(abs(index / NUM_BALLS - NUM_BALLS / 2));
-let speed = f32(index) * f32(index);
     let phase = f32(index) % f32(NUM_BALLS);
+let speed = f32(index) * f32(index); // separate balls
   let blobPos: vec2<f32> = vec2<f32>(
     cos(t + phase * speed),
     sin(t * 0.2 - f32(index) / f32(NUM_BALLS) * speed)
@@ -176,10 +175,14 @@ let speed = f32(index) * f32(index);
   return blobPos;
 }
 
+fn gaussian(d: f32, r: f32) -> f32 {
+  return exp(-(d*d)/(r*r));
+}
 @fragment
 fn fs(@builtin(position) fragCoord: vec4<f32>) -> @location(0) vec4<f32> {
     let res = U.resolution;
   var uv = (fragCoord.xy / res) * 2.0 - 1.0;
+  // -1 to 1
   uv.x *= res.x / res.y;
 
 let radius = 0.3;
@@ -196,12 +199,13 @@ let trans = vec4(1.0, 0.1, 0.6, 0.0);
   var val = 0.0;
   for (var i: u32 = 0u; i < NUM_BALLS; i++) {
     var blobPos = getBallPos(i, t);
-    if distance(blobPos, uv) < radius {
-      val += 0.5;
-    }
+    let d = distance(blobPos, uv);
+    val += gaussian(d, 0.3);
+  
+
   }
-  var bgColor = mix(
-  var color = mix(purple, white, val);
+  var bgColor = mix(purple, hotPink, uv.y);
+  var color = mix(bgColor, white, val);
   return color;
 }
 `;
