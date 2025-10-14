@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>olivia wong</title>
+    <title>olivia wong | lava lamp enthusiast</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Source+Code+Pro&display=swap"
       rel="stylesheet"
@@ -122,7 +122,6 @@
       </div>
     </section>
     <section id="projects">
-
       <canvas
         id="lava-canvas"
         style="width: 100%; height: 100%; display: block; background: #1b0d12"
@@ -178,6 +177,7 @@ let speed = f32(index) * f32(index); // separate balls
 fn gaussian(d: f32, r: f32) -> f32 {
   return exp(-(d*d)/(r*r));
 }
+
 @fragment
 fn fs(@builtin(position) fragCoord: vec4<f32>) -> @location(0) vec4<f32> {
     let res = U.resolution;
@@ -186,12 +186,14 @@ fn fs(@builtin(position) fragCoord: vec4<f32>) -> @location(0) vec4<f32> {
   uv.x *= res.x / res.y;
 
 let radius = 0.3;
-let numBalls = 5; 
-let white = vec4(1.0, 1.0, 1.0, 1.0);
+let white = vec4(1.0, 1.0, 0.9, 1.0);
 let black = vec4(0.0, 0.0, 0.0, 0.0);
-let purple = vec4(0.6, 0.1, 0.6, 1.0);
+let purple = vec4(0.6, 0.01, 0.45, 1.0);
 let hotPink = vec4(1.0, 0.09, 0.6, 1.0);
 let trans = vec4(1.0, 0.1, 0.6, 0.0);
+// light blue ish
+let blobColor0 = vec4(1.0, 0.1, 0.15, 1.0);
+let blobColor1 = vec4(1.0, 1.0, 0.15, 1.0);
 
   let t = U.time;
 //  let col = 0.5 + 0.5 * sin(vec3<f32>(uv.x + t, uv.y*1.2 - t, t*0.7));
@@ -201,34 +203,14 @@ let trans = vec4(1.0, 0.1, 0.6, 0.0);
     var blobPos = getBallPos(i, t);
     let d = distance(blobPos, uv);
     val += gaussian(d, 0.3);
-  
-
   }
   var bgColor = mix(purple, hotPink, uv.y);
   var color = mix(bgColor, white, val);
   return color;
 }
 `;
-/*
-        device.addEventListener("uncapturederror", (event) => {
-          console.log("lava", event.error.message);
-        });
-        */
 
         const module = device.createShaderModule({ code: shaderText });
-        // GET ERRORS
-        /*
-        if ("getCompilationInfo" in module) {
-          const info = await module.getCompilationInfo();
-          for (const msg of info.messages) {
-            const where = `@ ${msg.lineNum}:${msg.linePos}`;
-            const text = `${msg.message} ${where}`;
-            if (msg.type === "error") console.error("[WGSL error]", text);
-            else if (msg.type === "warning") console.warn("[WGSL warn]", text);
-            else console.log("[WGSL info]", text);
-          }
-        }
-        */
 
         const pipeline = device.createRenderPipeline({
           layout: "auto",
