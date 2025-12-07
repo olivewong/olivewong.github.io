@@ -133,6 +133,18 @@
         const canvas = document.querySelector("#lava-canvas");
 
         // TODO: try catch navigator undef if no webgpu
+				if (!navigator.gpu) {
+					document.body.innerHTML = `
+						<section class="intro">
+							<h1>ur browser doesnt support webgpu<span class="cursor"></span></h1>
+							<p>lame! it looks like this
+							<a href="https://github.com/olivewong/olivewong.github.io" target="_blank">
+							this	
+							</a></p>
+						</section>
+					`;
+					return;
+				}
         const adapter = await navigator.gpu.requestAdapter();
         const device = await adapter.requestDevice();
         const context = canvas.getContext("webgpu");
@@ -203,8 +215,8 @@ fn fs(@builtin(position) fragCoord: vec4<f32>) -> @location(0) vec4<f32> {
   let bgLight = vec4(1.0, 0.0, 0.46, 1.0);
   let trans = vec4(1.0, 0.1, 0.6, 0.0);
   // light blue ish
-  let blobColor0 = vec4(1.0, 0.1, 0.15, 1.0);
-  let blobColor1 = vec4(1.0, 1.0, 0.15, 1.0);
+  let blobColor0 = vec4(0.9, 0.1, 0.15, 1.0);
+  let blobColor1 = vec4(0.9, 1.0, 0.15, 1.0);
 
   let t = U.time;
   var val = 0.0;
@@ -223,9 +235,8 @@ fn fs(@builtin(position) fragCoord: vec4<f32>) -> @location(0) vec4<f32> {
   color += val * white * 0.5;
   if val < 1.0 {
     var purpley = mix(coolPurple, purple, uv.y * 0.5 + uv.x * 0.25 * sin(t) * 0.3 + 0.4 * cos(t / 0.3));
-    color = mix(purpley,color , val);
+    color = mix(purpley, color, val);
   }
-  //return vec4(color.b, color.g, color.r, color.a);
   return color;
   }
 `;
