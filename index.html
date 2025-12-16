@@ -132,21 +132,29 @@
       (async () => {
         const canvas = document.querySelector("#lava-canvas");
 
-        // TODO: try catch navigator undef if no webgpu
+        // Check for WebGPU support
 				if (!navigator.gpu) {
-					document.body.innerHTML = `
-						<section class="intro">
-							<h1>ur browser doesnt support webgpu<span class="cursor"></span></h1>
-							<p>lame! it looks like this
-							<a href="https://github.com/olivewong/olivewong.github.io" target="_blank">
-							this	
-							</a></p>
-						</section>
+					const projectsSection = document.querySelector("#projects");
+					projectsSection.innerHTML = `
+						<h1>your browser doesn't support webgpu so you can't see this boooooo<span class="cursor"></span></h1>
 					`;
 					return;
 				}
-        const adapter = await navigator.gpu.requestAdapter();
-        const device = await adapter.requestDevice();
+        
+        let adapter, device;
+        try {
+          adapter = await navigator.gpu.requestAdapter();
+          if (!adapter) {
+            throw new Error('No adapter available');
+          }
+          device = await adapter.requestDevice();
+        } catch (error) {
+          const projectsSection = document.querySelector("#projects");
+          projectsSection.innerHTML = `
+            <h1>your browser doesn't support webgpu so you can't see this boooooo<span class="cursor"></span></h1>
+          `;
+          return;
+        }
         const context = canvas.getContext("webgpu");
         const format = navigator.gpu.getPreferredCanvasFormat();
         context.configure({ device, format, alphaMode: "opaque" });
