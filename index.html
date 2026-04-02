@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<!-- no build step. no other files. just rawdogging javascript as god intended -->
+<!-- single file. no build step. keep it simple. -->
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>olivia wong | lava lamp enthusiast</title>
+    <title>olivia wong</title>
     <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Source+Code+Pro&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Source+Code+Pro:wght@400;600&display=swap"
       rel="stylesheet"
     />
     <style>
@@ -16,16 +16,15 @@
         --accent: #91a3ee;
         --glow: #9efeff;
         --text: #bbc0ca;
+        --dim: #666;
+        --surface: #15171a;
+        --highlight: #c4cfff;
+        --resume-max: 720px;
       }
 
-      * {
-        box-sizing: border-box;
-      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
 
-      html,
-      body {
-        margin: 0;
-        padding: 0;
+      html, body {
         scroll-behavior: smooth;
         font-family: "Source Code Pro", monospace;
         background: var(--bg);
@@ -37,7 +36,6 @@
         text-decoration: none;
         transition: all 0.2s ease;
       }
-
       a:hover {
         color: var(--glow);
         text-shadow: 0 0 4px var(--glow);
@@ -53,74 +51,293 @@
         text-align: center;
       }
 
+      /* -- intro -- */
       .intro h1 {
         font-family: "Space Grotesk", sans-serif;
         font-size: 3rem;
         margin-bottom: 0.5rem;
       }
-
       p {
         line-height: 1.6;
         font-size: 1.1rem;
         color: var(--text);
       }
-      .intro p {
-        max-width: 600px;
-        margin-bottom: 2rem;
-      }
+      .intro p { max-width: 600px; margin-bottom: 2rem; }
 
       .cursor::after {
         content: "|";
         animation: blink 2s infinite;
         color: var(--accent);
       }
-
       @keyframes blink {
-        0%,
-        50%,
-        100% {
-          opacity: 1;
-        }
-        25%,
-        75% {
-          opacity: 0;
-        }
+        0%, 50%, 100% { opacity: 1; }
+        25%, 75% { opacity: 0; }
       }
 
-      .nav a {
-        margin: 0 0.6rem;
-        font-weight: 500;
+      .nav a { margin: 0 0.6rem; font-weight: 500; }
+
+      /* -- resume -- */
+      .resume {
+        min-height: auto;
+        padding: 6rem 1.5rem;
+        background: var(--bg);
+        text-align: left;
+        justify-content: flex-start;
+      }
+      .resume-inner {
+        width: 100%;
+        max-width: var(--resume-max);
+      }
+      .resume-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 0.5rem;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+      .resume-header h2 {
+        font-family: "Space Grotesk", sans-serif;
+        font-size: 1.6rem;
+        color: var(--fg);
+        letter-spacing: 0.05em;
+      }
+      .dl-link {
+        font-size: 1.1em;
+        border: 3px solid var(--accent);
+        padding: 0.25rem 0.6rem;
+        border-radius: 3px;
+        transition: all 0.2s ease;
+      }
+      .dl-link:hover {
+        background: var(--accent);
+        color: var(--bg);
+        text-shadow: none;
       }
 
-      .projects {
-        background: #15171a;
+      .section-title {
+        font-family: "Space Grotesk", sans-serif;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: var(--accent);
+        border-bottom: 1px solid #2a2d33;
+        padding-bottom: 0.3rem;
+        margin-bottom: 1rem;
+        margin-top: 2rem;
       }
 
+      .entry { margin-bottom: 1.4rem; }
+      .entry-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        flex-wrap: wrap;
+        gap: 0.25rem;
+      }
+      .entry-title {
+        font-family: "Space Grotesk", sans-serif;
+        font-weight: 600;
+        font-size: 0.95rem;
+        color: var(--fg);
+      }
+      .entry-date {
+        font-family: "Source Code Pro", monospace;
+        font-size: 0.8rem;
+        color: var(--dim);
+        white-space: nowrap;
+      }
+      .entry-sub {
+        font-family: "Source Code Pro", monospace;
+        font-size: 0.85rem;
+        color: var(--dim);
+        font-style: italic;
+        margin-bottom: 0.3rem;
+      }
+      .entry ul {
+        list-style: none;
+        padding: 0;
+      }
+      .entry li {
+        font-family: "Source Code Pro", monospace;
+        font-size: 0.9rem;
+        color: var(--text);
+        line-height: 1.55;
+        padding-left: 1.2rem;
+        position: relative;
+        margin-bottom: 0.2rem;
+      }
+      .entry li::before {
+        content: "•";
+        position: absolute;
+        left: 0;
+        color: var(--dim);
+      }
+
+      /* subtle highlight for transportation-relevant skills */
+      .hl { color: var(--highlight); }
+
+      .skills-grid {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 0.3rem 1rem;
+        font-size: 0.85rem;
+      }
+      .skills-grid dt {
+        font-family: "Space Grotesk", sans-serif;
+        color: var(--dim);
+        text-align: right;
+        white-space: nowrap;
+      }
+      .skills-grid dd {
+        font-family: "Source Code Pro", monospace;
+        color: var(--text);
+        font-size: 0.9rem;
+      }
+
+      /* -- projects / lava -- */
+      .projects { background: var(--surface); }
       .projects h2 {
         font-family: "Space Grotesk", sans-serif;
         font-size: 2rem;
         margin-bottom: 1rem;
       }
+      .projects p { color: #aaa; }
 
-      .projects p {
-        color: #aaa;
+      @media (max-width: 600px) {
+        .intro h1 { font-size: 2rem; }
+        .resume { padding: 4rem 1.2rem; }
+        .entry-head { flex-direction: column; }
+        .skills-grid { grid-template-columns: 1fr; gap: 0.5rem; }
+        .skills-grid dt { text-align: left; }
       }
     </style>
   </head>
   <body>
+
+    <!-- intro -->
     <section class="intro">
       <h1>olivia wong<span class="cursor"></span></h1>
-      <p>i make things</p>
+      <p>san francisco</p>
       <div class="nav">
         <a href="mailto:oliviaawongg@gmail.com">email</a> /
         <a href="https://github.com/olivewong" target="_blank">github</a> /
-        <a href="https://linkedin.com/in/olivemwong" target="_blank"
-          >linkedin</a
-        >
-        /
+        <a href="https://linkedin.com/in/olivemwong" target="_blank">linkedin</a> /
+        <a href="#resume">resume</a> /
         <a href="#projects">projects</a>
       </div>
     </section>
+
+    <!-- resume -->
+    <section id="resume" class="resume">
+      <div class="resume-inner">
+
+        <div class="resume-header">
+          <h2>RESUME</h2>
+          <a class="dl-link" href="Olivia_Wong_Resume.pdf" download>↓ PDF</a>
+        </div>
+
+        <!-- experience -->
+        <div class="section-title">EXPERIENCE</div>
+
+        <div class="entry">
+          <div class="entry-head">
+            <span class="entry-title">WAABI</span>
+            <span class="entry-date">SEP 2023 – PRESENT</span>
+          </div>
+          <div class="entry-sub">Software Engineer · San Francisco, CA</div>
+          <ul>
+            <li>Built <span class="hl">3D visualizer</span> for autonomous vehicle data (Rust, wgpu): <a href="https://www.technologyreview.com/2025/03/11/1113044/waabi-says-its-virtual-robotrucks-are-realistic-enough-to-prove-the-real-ones-are-safe/" target="_blank">MIT Tech Review</a> | Bloomberg | <a href="https://waabi.ai/insights/simulator-realism-the-new-safety-standard-for-the-av-industry" target="_blank">Waabi</a></li>
+            <li>Owned backseat and demo <span class="hl">visualization</span> used in external demos</li>
+            <li>Developed tooling for <span class="hl">visualizing</span> and playing spatial audio from vehicle mics; designed in-vehicle sound UX</li>
+            <li>Prototyped simulation construction via voice using LLM (Gemini, Web Speech)</li>
+            <li>Mentored interns, wrote design docs, owned projects including features for <span class="hl">map editor</span> (<span class="hl">PostGIS</span>, <span class="hl">Mapbox</span>)</li>
+          </ul>
+        </div>
+
+        <div class="entry">
+          <div class="entry-head">
+            <span class="entry-title">UC SANTA CRUZ GENOMICS INSTITUTE</span>
+            <span class="entry-date">FEB 2022 – AUG 2022</span>
+          </div>
+          <div class="entry-sub">Research Assistant · Santa Cruz, CA</div>
+          <ul>
+            <li>Implemented validation, testing, redesigned interface for <span class="hl">genomics data visualizer</span> published in Bioinformatics</li>
+          </ul>
+        </div>
+
+        <div class="entry">
+          <div class="entry-head">
+            <span class="entry-title">EMBARK TRUCKS</span>
+            <span class="entry-date">MAY 2020 – AUG 2021</span>
+          </div>
+          <div class="entry-sub">Software Engineer Intern, Data Visualization · San Francisco, CA</div>
+          <ul>
+            <li>Built <span class="hl">3D visualization</span> suite for autonomous trucks</li>
+            <li>Optimized real-time rendering performance from 18fps to 60fps</li>
+            <li>Visualizer featured in company demos, YouTube, and Forbes; demoed to US Secretary of Transportation</li>
+          </ul>
+        </div>
+
+        <div class="entry">
+          <div class="entry-head">
+            <span class="entry-title">NEW RELIC</span>
+            <span class="entry-date">APR 2018 – AUG 2019</span>
+          </div>
+          <div class="entry-sub">Software Engineer Intern · San Francisco, CA</div>
+          <ul>
+            <li>Built <span class="hl">ML models</span> for server health prediction (Python, Pandas, Keras)</li>
+            <li>Built high throughput <span class="hl">data</span> simulator for data analytics launch</li>
+            <li>Presented to ML group on using autoencoders for <span class="hl">anomaly detection</span> in system data</li>
+          </ul>
+        </div>
+
+        <div class="entry">
+          <div class="entry-head">
+            <span class="entry-title">UDEMY</span>
+            <span class="entry-date">JUN 2017 – AUG 2017</span>
+          </div>
+          <div class="entry-sub">Software Engineer Intern · San Francisco, CA</div>
+          <ul>
+            <li>Developed linear model from past data to optimize ad spend, improving ROI by 10%</li>
+          </ul>
+        </div>
+
+        <!-- education -->
+        <div class="section-title">EDUCATION</div>
+
+        <div class="entry">
+          <div class="entry-head">
+            <span class="entry-title">UNIVERSITY OF CALIFORNIA, SANTA CRUZ</span>
+            <span class="entry-date">SEP 2018 – AUG 2022</span>
+          </div>
+          <div class="entry-sub">B.A. Computer Science and Music, Baskin School of Engineering · GPA: 3.76</div>
+          <ul>
+            <li>President of UCSC Rocket Team — led 20+ students in NASA Student Launch Initiative</li>
+            <li><span class="hl">Transit Announcement Voice</span>: Santa Cruz Metro Center (2020)</li>
+          </ul>
+        </div>
+
+        <!-- skills -->
+        <div class="section-title">SKILLS</div>
+
+        <dl class="skills-grid">
+          <dt>LANGUAGES</dt>
+          <dd>Python, SQL, Rust, TypeScript, Go</dd>
+          <dt>DATA</dt>
+          <dd><span class="hl">PostgreSQL, PostGIS, data visualization, data science,</span> Pandas</dd>
+          <dt>MAPS</dt>
+          <dd><span class="hl">Mapbox, geospatial data, map tooling</span></dd>
+          <dt>AI</dt>
+          <dd>LLM integration, ML modeling, prompt engineering</dd>
+          <dt>GRAPHICS</dt>
+          <dd>WebGL, WebGPU, wgpu, shaders (WGSL, GLSL) - scroll down </dd>
+        </dl>
+
+      </div>
+    </section>
+
+    <!-- projects / lava lamp -->
     <section id="projects">
       <canvas
         id="lava-canvas"
@@ -132,21 +349,19 @@
       (async () => {
         const canvas = document.querySelector("#lava-canvas");
 
-        // Check for WebGPU support
-				if (!navigator.gpu) {
-					const projectsSection = document.querySelector("#projects");
-					projectsSection.innerHTML = `
-						<h1>your browser doesn't support webgpu so you can't see this boooooo<span class="cursor"></span></h1>
-					`;
-					return;
-				}
-        
+        // check for webgpu support
+        if (!navigator.gpu) {
+          const projectsSection = document.querySelector("#projects");
+          projectsSection.innerHTML = `
+            <h1>your browser doesn't support webgpu so you can't see this boooooo<span class="cursor"></span></h1>
+          `;
+          return;
+        }
+
         let adapter, device;
         try {
           adapter = await navigator.gpu.requestAdapter();
-          if (!adapter) {
-            throw new Error('No adapter available');
-          }
+          if (!adapter) throw new Error("no adapter");
           device = await adapter.requestDevice();
         } catch (error) {
           const projectsSection = document.querySelector("#projects");
@@ -159,20 +374,12 @@
         const format = navigator.gpu.getPreferredCanvasFormat();
         context.configure({ device, format, alphaMode: "opaque" });
 
-        // resources
-        // https://jamie-wong.com/2014/08/19/metaballs-and-marching-squares/
-        // https://www.geisswerks.com/ryan/BLOBS/blobs.html
-        // https://www.shadertoy.com/view/NlGcDh
-        // rly good explanation
-        // https://www.gamedev.net/articles/programming/graphics/exploring-metaballs-and-isosurfaces-in-2d-r2556/
-
-        // fml there is no good vim one?
         const shaderText = /* wgsl */ `
 struct Globals { resolution: vec2<f32>, time: f32, _pad: f32 }
 @group(0) @binding(0) var<uniform> U : Globals;
 
-const EDGE: f32 = 0.60;   // iso-level; higher = thinner blobs
-const BAND: f32 = 0.14;   // rim softness
+const EDGE: f32 = 0.60;
+const BAND: f32 = 0.14;
 const NUM_BALLS: u32 = 8;
 
 @vertex
@@ -184,9 +391,8 @@ fn vs(@builtin(vertex_index) vid : u32) -> @builtin(position) vec4<f32> {
 }
 
 fn getBallPos(index: u32, t: f32) -> vec2<f32> {
-  // lissajous curve for animating the balls
   let phase = f32(index) % f32(NUM_BALLS);
-  let speed = f32(index) * f32(index); // separate balls
+  let speed = f32(index) * f32(index);
   let blobPos: vec2<f32> = vec2<f32>(
     cos(t + phase * speed),
     sin(t * 0.2 - f32(index) / f32(NUM_BALLS) * speed)
@@ -199,7 +405,6 @@ fn gaussian(d: f32, r: f32) -> f32 {
 }
 
 fn mix3(a:vec4<f32>,b:vec4<f32>,c: vec4<f32>, v: f32) -> vec4<f32> {
-  // v should be 0-1
   if v <= 0.5 {
     return mix(a, b, v * 2.0);
   }
@@ -210,7 +415,6 @@ fn mix3(a:vec4<f32>,b:vec4<f32>,c: vec4<f32>, v: f32) -> vec4<f32> {
 fn fs(@builtin(position) fragCoord: vec4<f32>) -> @location(0) vec4<f32> {
   let res = U.resolution;
   var uv = (fragCoord.xy / res) * 2.0 - 1.0;
-  // -1 to 1
   uv.x *= res.x / res.y;
 
   let white = vec4(1.0, 1.0, 0.9, 1.0);
@@ -222,7 +426,6 @@ fn fs(@builtin(position) fragCoord: vec4<f32>) -> @location(0) vec4<f32> {
   let bgMid = vec4(0.58, 0.0, 0.47, 1.0);
   let bgLight = vec4(1.0, 0.0, 0.46, 1.0);
   let trans = vec4(1.0, 0.1, 0.6, 0.0);
-  // light blue ish
   let blobColor0 = vec4(0.9, 0.1, 0.15, 1.0);
   let blobColor1 = vec4(0.9, 1.0, 0.15, 1.0);
 
@@ -258,7 +461,6 @@ fn fs(@builtin(position) fragCoord: vec4<f32>) -> @location(0) vec4<f32> {
           primitive: { topology: "triangle-list" },
         });
 
-        // we want it screen size for the resolution so its not stretched
         const uniformBuf = device.createBuffer({
           size: 16,
           usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST,
@@ -267,7 +469,7 @@ fn fs(@builtin(position) fragCoord: vec4<f32>) -> @location(0) vec4<f32> {
           layout: pipeline.getBindGroupLayout(0),
           entries: [{ binding: 0, resource: { buffer: uniformBuf } }],
         });
-        let speed = 2000; // lower is faster tho
+        let speed = 2000;
         let start = performance.now();
 
         function frame() {
@@ -295,11 +497,9 @@ fn fs(@builtin(position) fragCoord: vec4<f32>) -> @location(0) vec4<f32> {
         }
         function resize() {
           const dpr = Math.max(1, window.devicePixelRatio || 1);
-          // Match CSS size
-            const c = document.querySelector('canvas');
+          const c = document.querySelector("canvas");
           c.style.width = "100vw";
-          c.style.height = "100svh"; // or '100vh'
-          // Set drawing buffer
+          c.style.height = "100svh";
           c.width = Math.round(window.innerWidth * dpr);
           c.height = Math.round(window.innerHeight * dpr);
           frame();
